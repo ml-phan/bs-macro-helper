@@ -42,7 +42,7 @@ def position_to_coordinate(a):
 
 def click(x, y):
     h_wnd = win32gui.FindWindow(None, "BlueStacks")
-    l_param = win32api.MAKELONG(x, y)
+    l_param = win32api.MAKELONG(int(x), int(y))
 
     h_wnd1 = win32gui.FindWindowEx(h_wnd, None, None, None)
     win32gui.SendMessage(h_wnd1, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
@@ -89,9 +89,17 @@ kok_coor = position_to_coordinate(kok)
 print("Percentage ", kok_coor[0], kok_coor[1])
 print("Clicking at", kok_coor[0]*game_width, kok_coor[1]*game_height)
 time.sleep(1)
+print("Click to open KoK")
 click(int(kok_coor[0]*game_width), int(kok_coor[1]*game_height))
-time.sleep(20)
-click(0.5*game_width, 0.05*game_height)
+time.sleep(60)
+print("Click to close welcome screen")
+click(int(0.5*game_width), int(0.05*game_height))
+time.sleep(10)
+print("Click to enter server")
+click(int(0.5*game_width), int(0.87*game_height))
+time.sleep(60)
+print("Click to enter event")
+click(int(0.45*game_width), int(0.62*game_height))
 
 # hwnd2 = win32gui.FindWindow(None, "Ann - Discord")
 # print(win32gui.GetWindowText(hwnd), "is type", win32gui.GetClassName(hwnd), "and has ID", hwnd)
