@@ -52,7 +52,7 @@ def click(x, y):
 def restart_bluestacks():
     os.system("TASKKILL /F /IM HD-Player.exe")
     time.sleep(5)
-    os.startfile(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\BlueStacks 5.lnk")
+    os.startfile(r"C:\Program Files\BlueStacks_bgp64\Bluestacks.exe")
 
 
 hwnd = win32gui.FindWindow(bluestack_type, "Bluestacks")
@@ -60,7 +60,7 @@ hwnd1 = ""
 if not hwnd:
     print(hwnd)
     print("Starting Bluestacks")
-    os.startfile(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\BlueStacks 5.lnk")
+    os.startfile(r"C:\Program Files\BlueStacks_bgp64\Bluestacks.exe")
     time.sleep(20)
     hwnd = win32gui.FindWindow(bluestack_type, "Bluestacks")
     hwnd1 = win32gui.FindWindowEx(hwnd, None, None, None)
