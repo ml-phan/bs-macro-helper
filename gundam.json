@@ -1,0 +1,9 @@
+{
+    "Gundam Wing": {
+        "Height": 28,
+        "Weight": 70,
+        "Speed": 1500,
+        "Defense": 3000,
+        "Energy": 300
+    }
+}
