@@ -29,7 +29,7 @@ def winEnumHandler(hwnd, pname):
     #     f.write(classname)
 
 # os.remove("windows.txt")
-# win32gui.EnumWindows(winEnumHandler, None)
+# /win32gui.EnumWindows(winEnumHandler, None)
 
 
 def click(x, y):
@@ -237,7 +237,7 @@ def kok_alchemy_pipeline():
 if __name__ == '__main__':
     # win32gui.EnumWindows(winEnumHandler, None)
     running = False
-    time.sleep(2)
+    # time.sleep(2)
     # restart_bluestacks()
     bs_instance = []
     bs_infos = []
