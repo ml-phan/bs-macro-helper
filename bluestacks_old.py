@@ -63,15 +63,7 @@ def print_bs_info(hwnd):
     print("Bluestacks height: ", bs_height)
 
 
-def get_game_dimension(hwnd):
-    hwnd1 = win32gui.FindWindowEx(hwnd, None, None, None)
-    game_screen = list(win32gui.GetWindowRect(hwnd1))
-    game_width = game_screen[2] - game_screen[0]
-    game_height = game_screen[3] - game_screen[1]
-    print("Game screen position: ", game_screen)
-    print("Game screen height: ", game_width)
-    print("Game screen height: ", game_height)
-    return game_width, game_height
+
 
 
 def print_game_info(hwnd):
@@ -98,67 +90,7 @@ def restart_bluestacks():
     time.sleep(50)
 
 
-def to_kok_event(hwnd):
-    game_width, game_height = get_game_dimension(hwnd)
-    time.sleep(10)
-    print("Click to close event splash")
-    click(0.5 * game_width, 0.06 * game_height)
-    time.sleep(5)
-    print("Click to enter server")
-    click(0.5 * game_width, 0.875 * game_height)
-    time.sleep(10)
-    print("Click to close Mihime sale")
-    click(0.9055 * game_width, 0.05125 * game_height)
-    time.sleep(2)
-    click(0.9055 * game_width, 0.05125 * game_height)
-    time.sleep(2)
-    click(0.9055 * game_width, 0.05125 * game_height)
-    time.sleep(2)
-    print("Click to close return to Main")
-    click(0.1 * game_width, 0.95 * game_height)
-    time.sleep(2)
-    click(0.1 * game_width, 0.95 * game_height)
-    time.sleep(2)
-    click(0.1 * game_width, 0.95 * game_height)
-    time.sleep(2)
-    print("Click to enter KoK event")
-    click(0.455 * game_width, 0.625 * game_height)
 
-
-def kok_alchemy_event_tap(hwnd):
-    game_width, game_height = get_game_dimension(hwnd)
-    time.sleep(10)
-    print("Click to open Alchemy Urn")
-    click(0.1222 * game_width, 0.8562 * game_height)
-    time.sleep(5)
-    print("Click to claim Alchemy")
-    click(0.6777 * game_width, 0.7437 * game_height)
-    time.sleep(5)
-    print("Click to close Alchemy claim notice")
-    click(0.5 * game_width, 0.22 * game_height)
-
-
-def kok_tap(hwnd):
-    game_width, game_height = get_game_dimension(hwnd)
-    print("Click to claim Alchemy")
-    i = 0
-    while i < 600:
-        time.sleep(5)
-        random_width = random.uniform(-0.4, 0.4)
-        random_height = random.uniform(-0.14, 0.14)
-        click((0.5+random_width) * game_width, (0.155 + random_height) * game_height)
-        i += 1
-        if i % 100 == 0:
-            print("Click number:", i)
-
-
-def kok_alchemy_pipeline():
-    restart_bluestacks()
-    pid = win32gui.FindWindow(None, "BlueStacks")
-    to_kok_event(pid)
-    kok_alchemy_event_tap(pid)
-    kok_tap(pid)
-    time.sleep(30)
 
 
 if __name__ == '__main__':

@@ -83,26 +83,6 @@ def kill_bs_2(bit):
 #     else:
 #         print("No BlueStacks is running")
 
-
-def start_app(name, bit):
-    if name.lower() == "kok" and bit == 32:
-        os.startfile(r"C:\Users\phanm\OneDrive\Desktop\King of Kinks - 32-bit.lnk")
-    elif name.lower() == "kok" and bit == 64:
-        os.startfile(r"C:\Users\phanm\OneDrive\Desktop\King of Kinks - 64-bit.lnk")
-    elif name.lower() == "qt" and bit == 32:
-        os.startfile(r"C:\Users\phanm\OneDrive\Desktop\Project QT - 32-bit.lnk")
-    elif name.lower() == "qt" and bit == 64:
-        os.startfile(r"C:\Users\phanm\OneDrive\Desktop\Project QT - 64-bit.lnk")
-    elif name.lower() == "ha" and bit == 32:
-        os.startfile(r"C:\Users\phanm\OneDrive\Desktop\Horny Arcana - 32-bit.lnk")
-    elif name.lower() == "ha" and bit == 64:
-        os.startfile(r"C:\Users\phanm\OneDrive\Desktop\Horny Arcana - 64-bit.lnk")
-    else:
-        pass
-    time.sleep(40)
-    find_bs_instances()
-    time.sleep(10)
-
 pid = win32gui.FindWindow(None, "BlueStacks")
 print(pid)
 find_bs_instances()
