@@ -20,7 +20,7 @@ tap_char_list = [(1, 1),
 def pos_to_coordinate(a):
     x = 0.112 + (a[0] - 1) * 0.19
     y = 0.195 + (a[1] - 1) * 0.106
-    return x*900, y*1600
+    return x, y
 
 
 def ha_enter_game(game_width, game_height, hwnd):
@@ -44,8 +44,9 @@ def char_list(game_width, game_height, hwnd):
 
 def all_tap(game_width, game_height, hwnd):
     for i in tap_char_list:
+        a, b = pos_to_coordinate(i)
         print("Click to enter character number", i.index()+1)
-        click(hwnd, i[0] * game_width, i[1] * game_height)
+        click(hwnd, a * game_width, b * game_height)
         time.sleep(5)
         tap_single_char(game_width, game_height, hwnd)
 

@@ -21,8 +21,9 @@ def ha_all_tap_pipeline():
 
 
 if __name__ == '__main__':
-    running = True
+    running = False
     while running:
         kok_alchemy_pipeline()
 # ha_all_tap_pipeline()
 
+get_all_bs()
