@@ -42,6 +42,19 @@ def get_command_line(hwnd):
     return get_process(hwnd).cmdline()
 
 
+def get_bs_hwnd(bit):
+    get_all_bs()
+    for i in bs_hwnd:
+        if str(bit) == "64" and str(bit) in i["path"]:
+            print("BlueStacks 64-bit is running with ID", i["hwnd"])
+            return i["hwnd"]
+        elif str(bit) == "32" and str(64) not in i["path"]:
+            print("BlueStacks 32-bit is running with ID", i["hwnd"])
+            return i["hwnd"]
+        else:
+            print("Wrong bit number")
+
+
 def get_bs64_hwnd():
     get_all_bs()
     for i in bs_hwnd:
@@ -62,6 +75,19 @@ def get_bs32_hwnd():
             print("No BlueStacks 32-bit is running")
 
 
+def kill_bs(bit):
+    get_all_bs()
+    for i in bs_hwnd:
+        if bit == 64 and str(bit) in i["path"]:
+            print("Killing BlueStacks 64-bit with ID", i["hwnd"])
+            get_process(i["hwnd"]).kill()
+        elif bit == 32 and str(64) not in i["path"]:
+            print("Killing BlueStacks 32-bit with ID", i["hwnd"])
+            get_process(i["hwnd"]).kill()
+        else:
+            print("Wrong bit number")
+
+
 def kill_bs64():
     get_all_bs()
     for i in bs_hwnd:
@@ -79,7 +105,7 @@ def kill_bs32():
 def start_app(name, bit):
     time.sleep(1)
     if bit == 32:
-        kill_bs32()
+        kill_bs(bit)
         if name.lower() == "kok":
             os.startfile(r"C:\Users\phanm\OneDrive\Desktop\kok32.lnk")
         elif name.lower() == "qt":
@@ -89,7 +115,7 @@ def start_app(name, bit):
         else:
             print("Invalid game name")
     elif bit == 64:
-        kill_bs64()
+        kill_bs(bit)
         if name.lower() == "kok":
             os.startfile(r"C:\Users\phanm\OneDrive\Desktop\kok64.lnk")
         elif name.lower() == "qt":
