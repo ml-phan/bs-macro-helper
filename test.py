@@ -31,7 +31,7 @@ def winEnumHandler(hwnd, pname):
 
 get_pname("BlueStacks")
 print(bs_hwnd)
-variable = get_game_dimension(133168)
+# variable = get_game_dimension(133168)
 # print(variable)
 # if chrome:
 #     hwnd = chrome[0]["hwnd"]

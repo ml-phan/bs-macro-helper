@@ -18,8 +18,7 @@ def get_all_bs():
 
 def winEnumHandler(hwnd, pname):
     if win32gui.IsWindowVisible(hwnd) and pname in win32gui.GetWindowText(hwnd) and \
-            ("WindowIcon" in win32gui.GetClassName(hwnd) or "Hwnd" in win32gui.GetClassName(hwnd) or
-             pname in win32gui.GetWindowText(hwnd)):
+            ("Qt5154" in win32gui.GetClassName(hwnd) or "Hwnd" in win32gui.GetClassName(hwnd)) :
         process_id = get_process_id(hwnd)
         process = psutil.Process(process_id)
         path = process.exe()
