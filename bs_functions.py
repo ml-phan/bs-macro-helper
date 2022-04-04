@@ -8,6 +8,7 @@ import win32gui
 import win32process
 
 bs_hwnd = []
+chrome = []
 
 
 def get_all_bs():
@@ -17,12 +18,16 @@ def get_all_bs():
 
 def winEnumHandler(hwnd, pname):
     if win32gui.IsWindowVisible(hwnd) and pname in win32gui.GetWindowText(hwnd) and \
-            ("WindowIcon" in win32gui.GetClassName(hwnd) or "Hwnd" in win32gui.GetClassName(hwnd)):
+            ("WindowIcon" in win32gui.GetClassName(hwnd) or "Hwnd" in win32gui.GetClassName(hwnd) or
+             pname in win32gui.GetWindowText(hwnd)):
         process_id = get_process_id(hwnd)
         process = psutil.Process(process_id)
         path = process.exe()
         cmdline = process.cmdline()
-        bs_hwnd.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
+        if "Blue" in pname:
+            bs_hwnd.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
+        elif "Chrome" in pname:
+            chrome.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
 
 
 def get_process_id(hwnd):
@@ -78,10 +83,10 @@ def get_bs32_hwnd():
 def kill_bs(bit):
     get_all_bs()
     for i in bs_hwnd:
-        if bit == 64 and str(bit) in i["path"]:
+        if bit == 64 and any(str(bit) in s for s in i["cmd"]):
             print("Killing BlueStacks 64-bit with ID", i["hwnd"])
             get_process(i["hwnd"]).kill()
-        elif bit == 32 and str(64) not in i["path"]:
+        elif bit == 32 and all(str(64) not in s for s in i["cmd"]):
             print("Killing BlueStacks 32-bit with ID", i["hwnd"])
             get_process(i["hwnd"]).kill()
         else:
