@@ -1,5 +1,8 @@
+import pprint
+
 import win32gui
 
+import bs_functions
 from bs_functions import *
 
 bs_hwnd = []
@@ -13,24 +16,33 @@ def get_pname(pname):
 
 
 def winEnumHandler(hwnd, pname):
-    if win32gui.IsWindowVisible(hwnd) and pname in win32gui.GetWindowText(hwnd):
-        print("Program - ID:", hwnd)
-        print("          WindowText:", win32gui.GetWindowText(hwnd))
-        print("          ClassName:", win32gui.GetClassName(hwnd))
+    if win32gui.IsWindowVisible(hwnd) and pname in win32gui.GetWindowText(hwnd) and \
+            ("Qt5154" in win32gui.GetClassName(hwnd) or "Hwnd" in win32gui.GetClassName(hwnd) or
+             "Chrome" in win32gui.GetClassName(hwnd)):
+        # print("Program - ID:", hwnd)
+        # print("          WindowText:", win32gui.GetWindowText(hwnd))
+        # print("          ClassName:", win32gui.GetClassName(hwnd))
         process_id = get_process_id(hwnd)
         process = psutil.Process(process_id)
         path = process.exe()
         cmdline = process.cmdline()
-        print("path", path)
-        print("cmd", cmdline)
-        if "BlueStacks" in pname:
+        # print("path", path)
+        # print("cmd", cmdline)
+        if "Blue" in pname and ("Qt5154" in win32gui.GetClassName(hwnd) or
+                                      "Hwnd" in win32gui.GetClassName(hwnd)):
             bs_hwnd.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
         elif "Chrome" in pname:
             chrome.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
 
+get_all_bs()
+pprint.pprint(bs_functions.bs_hwnd)
+for i in range(10):
+    time.sleep(2)
+    click(131866, 100, 100)
 
-get_pname("BlueStacks")
-print(bs_hwnd)
+# get_pname("BlueStacks")
+# pprint.pprint(bs_hwnd)
+# pprint.pprint(chrome)
 # variable = get_game_dimension(133168)
 # print(variable)
 # if chrome:
