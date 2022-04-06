@@ -45,7 +45,7 @@ def kok_alchemy_event_tap(game_width, game_height, hwnd):
 def kok_alchemy_tap(game_width, game_height, hwnd):
     print("Click to claim Alchemy")
     i = 0
-    while i < 200:
+    while i < 80:
         time.sleep(3)
         random_width = random.uniform(-0.4, 0.4)
         random_height = random.uniform(-0.12, 0.12)

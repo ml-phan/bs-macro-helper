@@ -149,7 +149,7 @@ def start_app(name, bit):
             os.startfile(r"C:\Users\phanm\OneDrive\Desktop\ha64.lnk")
         else:
             print("Invalid bit")
-    time.sleep(5)
+    time.sleep(30)
     time.sleep(60)
     get_all_bs()
     print(bs_hwnd)
@@ -159,8 +159,8 @@ def start_app(name, bit):
 def click(h_wnd, x, y):
     l_param = win32api.MAKELONG(int(x), int(y))
     h_wnd1 = win32gui.FindWindowEx(h_wnd, None, None, None)
-    win32gui.SendMessage(h_wnd1, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
-    win32gui.SendMessage(h_wnd1, win32con.WM_LBUTTONUP, None, l_param)
+    win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
+    win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONUP, None, l_param)
 
 
 def click_no_ex(h_wnd, x, y):

@@ -5,9 +5,9 @@ from bs_functions import click
 
 def enter_qt_main_screen(game_width, game_height, hwnd):
     time.sleep(10)
-    print("Click to update game")
-    click(hwnd, 0.5 * game_width, 0.61875 * game_height)
-    time.sleep(30)
+    # print("Click to update game")
+    # click(hwnd, 0.5 * game_width, 0.61875 * game_height)
+    # time.sleep(30)
     print("Click to enter server")
     click(hwnd, 0.5 * game_width, 0.90625 * game_height)
     time.sleep(30)
