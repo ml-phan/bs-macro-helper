@@ -163,6 +163,19 @@ def click(h_wnd, x, y):
     win32gui.SendMessage(h_wnd1, win32con.WM_LBUTTONUP, None, l_param)
 
 
+def click_no_ex(h_wnd, x, y):
+    l_param = win32api.MAKELONG(int(x), int(y))
+    win32gui.SendMessage(h_wnd, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
+    win32gui.SendMessage(h_wnd, win32con.WM_LBUTTONUP, None, l_param)
+
+
+def click2(h_wnd, x, y):
+    l_param = win32api.MAKELONG(int(x), int(y))
+    h_wnd1 = win32gui.FindWindowEx(h_wnd, None, None, None)
+    win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
+    win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONUP, None, l_param)
+
+
 def get_game_dimension(hwnd):
     print("Getting Resolution from hwnd", hwnd)
     hwnd1 = win32gui.FindWindowEx(hwnd, None, None, None)
