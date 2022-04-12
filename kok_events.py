@@ -54,3 +54,11 @@ def kok_alchemy_tap(game_width, game_height, hwnd):
         if i % 100 == 0:
             print("Click number:", i)
 
+
+def kok_wine(game_width, game_height, hwnd):
+    print("Click to open wine urn")
+    click(hwnd, 0.1 * game_width, 0.875 * game_height)
+    time.sleep(3)
+    print("Click to collect wine")
+    click(hwnd, 0.75 * game_width, 0.7 * game_height)
+

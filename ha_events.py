@@ -30,7 +30,7 @@ def ha_enter_game(game_width, game_height, hwnd):
     time.sleep(5)
     print("Click to enter game")
     click(hwnd, 0.5 * game_width, 0.956 * game_height)
-    time.sleep(30)
+    time.sleep(50)
     print("Click to close event splash game")
     click(hwnd, 0.5 * game_width, 0.9375 * game_height)
     time.sleep(5)
