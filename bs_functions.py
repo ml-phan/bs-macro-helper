@@ -149,7 +149,7 @@ def start_app(name, bit):
             os.startfile(r"C:\Users\phanm\OneDrive\Desktop\ha64.lnk")
         else:
             print("Invalid bit")
-    time.sleep(5)
+    time.sleep(30)
     time.sleep(60)
     get_all_bs()
     print(bs_hwnd)
