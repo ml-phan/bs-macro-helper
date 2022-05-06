@@ -39,7 +39,7 @@ def enter_qt_main_screen(game_width, game_height, hwnd):
 def enter_qt_event(game_width, game_height, hwnd):
     print("Click to enter QT event")
     click(hwnd, 0.5 * game_width, 0.56875 * game_height)
-    time.sleep(3)
+    time.sleep(10)
 
 
 def qt_energy_tank(game_width, game_height, hwnd):
@@ -55,3 +55,13 @@ def qt_energy_tank(game_width, game_height, hwnd):
     print("Click to close energy tank windows")
     click(hwnd, 0.5 * game_width, 0.90625 * game_height)
     time.sleep(3)
+
+
+def qt_tap(game_width, game_height, hwnd):
+    print("Click to tap x5")
+    click(hwnd, 0.0733 * game_width, 0.80625 * game_height)
+    time.sleep(3)
+    print("Click to tap 30")
+    for i in range(30):
+        click(hwnd, 0.5 * game_width, 0.5 * game_height)
+        time.sleep(1)

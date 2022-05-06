@@ -1,4 +1,5 @@
 import os
+import subprocess
 import time
 
 import psutil
@@ -110,7 +111,7 @@ def kill_bs(bit):
             print("Killing BlueStacks 32-bit with ID", i["hwnd"])
             get_process(i["hwnd"]).kill()
         else:
-            print("Wrong bit number")
+            print("Wrong bit number ?")
 
 
 def kill_bs64():
@@ -128,25 +129,37 @@ def kill_bs32():
 
 
 def start_app(name, bit):
+    qt32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Project QT\",\"app_url\":\"\",\"app_pkg\":\"com.ignite.qt\"}"'
+    qt64 = r'"C:\Program Files\BlueStacks_bgp64\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Project QT\",\"app_url\":\"\",\"app_pkg\":\"com.ignite.qt\"}"'
+    kok32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+            r'-json "{\"app_icon_url\":\"\",\"app_name\":\"King of Kinks\",\"app_url\":\"\",\"app_pkg\":\"com.hmagic.kingofkinks\"}"'
+    kok64 = r'"C:\Program Files\BlueStacks_bgp64\HD-RunApp.exe" ' \
+            r'-json "{\"app_icon_url\":\"\",\"app_name\":\"King of Kinks\",\"app_url\":\"\",\"app_pkg\":\"com.hmagic.kingofkinks\"}"'
+    ha32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Horny Arcana\",\"app_url\":\"\",\"app_pkg\":\"com.superhgame.ha.nutaku\"}"'
+    ha64 = r'"C:\Program Files\BlueStacks_bgp64\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Horny Arcana\",\"app_url\":\"\",\"app_pkg\":\"com.superhgame.ha.nutaku\"}"'
     time.sleep(1)
     if bit == 32:
         kill_bs(bit)
         if name.lower() == "kok":
-            os.startfile(r"C:\Users\phanm\OneDrive\Desktop\kok32.lnk")
+            subprocess.Popen(kok32)
         elif name.lower() == "qt":
-            os.startfile(r"C:\Users\phanm\OneDrive\Desktop\qt32.lnk")
+            subprocess.Popen(qt32)
         elif name.lower() == "ha":
-            os.startfile(r"C:\Users\phanm\OneDrive\Desktop\ha32.lnk")
+            subprocess.Popen(ha32)
         else:
             print("Invalid game name")
     elif bit == 64:
         kill_bs(bit)
         if name.lower() == "kok":
-            os.startfile(r"C:\Users\phanm\OneDrive\Desktop\kok64.lnk")
+            subprocess.Popen(kok64)
         elif name.lower() == "qt":
-            os.startfile(r"C:\Users\phanm\OneDrive\Desktop\qt64.lnk")
+            subprocess.Popen(qt64)
         elif name.lower() == "ha":
-            os.startfile(r"C:\Users\phanm\OneDrive\Desktop\ha64.lnk")
+            subprocess.Popen(ha64)
         else:
             print("Invalid bit")
     time.sleep(30)

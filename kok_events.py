@@ -55,10 +55,20 @@ def kok_alchemy_tap(game_width, game_height, hwnd):
             print("Click number:", i)
 
 
+def kok_wine_collect(game_width, game_height, hwnd):
+    time.sleep(5)
+    print("Click to open wine storage")
+    click(hwnd, 0.1222 * game_width, 0.8562 * game_height)
+    time.sleep(5)
+    print("Click to claim Alchemy")
+    click(hwnd, 0.822 * game_width, 0.8562 * game_height)
+
+
 def kok_wine(game_width, game_height, hwnd):
+    time.sleep(5)
     print("Click to open wine urn")
-    click(hwnd, 0.1 * game_width, 0.875 * game_height)
+    click(hwnd, 0.122 * game_width, 0.8625 * game_height)
     time.sleep(3)
     print("Click to collect wine")
-    click(hwnd, 0.75 * game_width, 0.7 * game_height)
+    click(hwnd, 0.8333 * game_width, 0.85 * game_height)
 

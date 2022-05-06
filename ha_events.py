@@ -7,13 +7,14 @@ tap_char_list = [(1, 1),  # Gill
                  (2, 2),  # Juno
                  (4, 2),  # Emma
                  (5, 2),  # Mimi
-                 (1, 3),  # Scarlett
-                 (4, 3),  # Celia
+                 (2, 3),  # Scarlett
+                 (5, 3),  # Celia
                  (2, 4),  # Rita
-                 (4, 4),  # T3-5
-                 (2, 5),  # Xaville
-                 (4, 5),  # Ann
-                 (5, 5),  # Vannessa
+                 (5, 4),  # Lan
+                 (1, 5),  # T3-5
+                 (3, 5),  # Xaville
+                 (5, 5),  # Ann
+                 (1, 6),  # Vannessa
                  ]
 
 
