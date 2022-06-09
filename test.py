@@ -1,3 +1,4 @@
+import datetime
 import pprint
 
 import win32gui
@@ -12,7 +13,7 @@ chrome = []
 def get_pname(pname):
     bs_hwnd.clear()
     chrome.clear()
-    win32gui.EnumWindows(winEnumHandler, pname)
+    win32gui.EnumWindows(win_enum_handler, pname)
 
 
 def winEnumHandler2(hwnd, ctx):
@@ -54,6 +55,3 @@ def winEnumHandler(hwnd, pname):
 #     win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
 #     win32gui.SetWindowPos(chrome[0]["hwnd"], win32con.HWND_NOTOPMOST, 0, 0, 0, 0,
 #                           win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
-str1 = r'"C:\Program Files\BlueStacks_bgp64\HD-RunApp.exe" -json "{\"app_icon_url\":\"\",\"app_name\":\"Project QT\",\"app_url\":\"\",\"app_pkg\":\"com.ignite.qt\"}"'
-
-print(str1)

@@ -2,12 +2,13 @@ import time
 import random
 from bs_functions import click
 
+# Various functions to enter game and automate event clickers
 
 def enter_qt_main_screen(game_width, game_height, hwnd):
     time.sleep(10)
-    # print("Click to update game")
-    # click(hwnd, 0.5 * game_width, 0.61875 * game_height)
-    # time.sleep(30)
+    print("Click to update game")
+    click(hwnd, 0.5 * game_width, 0.61875 * game_height)
+    time.sleep(30)
     print("Click to enter server")
     click(hwnd, 0.5 * game_width, 0.90625 * game_height)
     time.sleep(30)
@@ -40,6 +41,9 @@ def enter_qt_event(game_width, game_height, hwnd):
     print("Click to enter QT event")
     click(hwnd, 0.5 * game_width, 0.56875 * game_height)
     time.sleep(10)
+    print("Click to close event instruction")
+    click(hwnd, 0.5 * game_width, 0.9 * game_height)
+    time.sleep(5)
 
 
 def qt_energy_tank(game_width, game_height, hwnd):

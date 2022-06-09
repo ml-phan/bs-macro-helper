@@ -3,6 +3,7 @@ import random
 
 from bs_functions import click
 
+# Various functions to enter game and automate event clickers
 
 def to_kok_event(game_width, game_height, hwnd):
     time.sleep(10)

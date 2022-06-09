@@ -1,21 +1,24 @@
 import time
 import random
-from bs_functions import click, get_game_dimension
+from bs_functions import click
 
 tap_char_list = [(1, 1),  # Gill
-                 (2, 1),  # Seila
+                 (3, 1),  # Seila
                  (2, 2),  # Juno
                  (4, 2),  # Emma
                  (5, 2),  # Mimi
-                 (2, 3),  # Scarlett
+                 (3, 3),  # Scarlett
                  (5, 3),  # Celia
                  (2, 4),  # Rita
                  (5, 4),  # Lan
                  (1, 5),  # T3-5
                  (3, 5),  # Xaville
-                 (5, 5),  # Ann
+                 (4, 5),  # Ann
                  (1, 6),  # Vannessa
                  ]
+
+
+# Various functions to enter game and automate event clickers
 
 
 def pos_to_coordinate(a):

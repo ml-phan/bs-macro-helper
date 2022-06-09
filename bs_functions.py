@@ -1,3 +1,4 @@
+import datetime
 import os
 import subprocess
 import time
@@ -12,18 +13,14 @@ bs_hwnd = []
 chrome = []
 
 
+# return handler of all bs instances
 def get_all_bs():
     bs_hwnd.clear()
-    win32gui.EnumWindows(winEnumHandler, "BlueStacks")
+    win32gui.EnumWindows(win_enum_handler, "BlueStacks")
 
 
-def get_pname(pname):
-    bs_hwnd.clear()
-    chrome.clear()
-    win32gui.EnumWindows(winEnumHandler, pname)
-
-
-def winEnumHandler(hwnd, pname):
+# Find all bs instance handles
+def win_enum_handler(hwnd, pname):
     if win32gui.IsWindowVisible(hwnd) and pname in win32gui.GetWindowText(hwnd) and \
             ("Qt5154" in win32gui.GetClassName(hwnd) or "Hwnd" in win32gui.GetClassName(hwnd) or
              "Chrome" in win32gui.GetClassName(hwnd)):
@@ -38,36 +35,28 @@ def winEnumHandler(hwnd, pname):
             chrome.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
 
 
-# def winEnumHandler(hwnd, pname):
-#     if win32gui.IsWindowVisible(hwnd) and pname in win32gui.GetWindowText(hwnd) and \
-#             ("Qt5154" in win32gui.GetClassName(hwnd) or "Hwnd" in win32gui.GetClassName(hwnd)) :
-#         process_id = get_process_id(hwnd)
-#         process = psutil.Process(process_id)
-#         path = process.exe()
-#         cmdline = process.cmdline()
-#         if "Blue" in pname:
-#             bs_hwnd.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
-#         elif "Chrome" in pname:
-#             chrome.append({"hwnd": hwnd, "pid": process_id, "path": path, "cmd": cmdline})
-
-
+# Get the process ID of a given handle "hwnd"
 def get_process_id(hwnd):
     _, pid = win32process.GetWindowThreadProcessId(hwnd)
     return pid
 
 
+# Get the process from process ID
 def get_process(hwnd):
     return psutil.Process(get_process_id(hwnd))
 
 
+# Get the executable path of a bs instance with handle "hwnd"
 def get_exe_path(hwnd):
     return get_process(hwnd).exe()
 
 
+# Get the command line of a bs instance with the handle "hwnd"  to parse for bit mode
 def get_command_line(hwnd):
     return get_process(hwnd).cmdline()
 
 
+# Get handles of all bs instance, either 32-bit or 64-bit
 def get_bs_hwnd(bit):
     get_all_bs()
     for i in bs_hwnd:
@@ -81,26 +70,8 @@ def get_bs_hwnd(bit):
             print("Wrong bit number")
 
 
-def get_bs64_hwnd():
-    get_all_bs()
-    for i in bs_hwnd:
-        if "64" in i["path"]:
-            print("BlueStacks 64-bit is running with ID", i["hwnd"])
-            return i["hwnd"]
-        else:
-            print("No BlueStacks 64-bit is running")
-
-
-def get_bs32_hwnd():
-    get_all_bs()
-    for i in bs_hwnd:
-        if "64" not in i["path"]:
-            print("BlueStacks 32-bit is running with ID", i["hwnd"])
-            return i["hwnd"]
-        else:
-            print("No BlueStacks 32-bit is running")
-
-
+# Shutdown all bs instances
+# bit: 32-bit or 64-bit bs instances
 def kill_bs(bit):
     get_all_bs()
     for i in bs_hwnd:
@@ -114,81 +85,74 @@ def kill_bs(bit):
             print("Wrong bit number ?")
 
 
-def kill_bs64():
-    get_all_bs()
-    for i in bs_hwnd:
-        if "64" in i["path"]:
-            get_process(i["hwnd"]).kill()
-
-
-def kill_bs32():
-    get_all_bs()
-    for i in bs_hwnd:
-        if "64" not in i["path"]:
-            get_process(i["hwnd"]).kill()
-
-
+# Start a program that is installed within a bs instance
+# name : short name of the program
+# bit : start bs in either 32-bit or 64-bit mode
 def start_app(name, bit):
-    qt32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
-           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Project QT\",\"app_url\":\"\",\"app_pkg\":\"com.ignite.qt\"}"'
-    qt64 = r'"C:\Program Files\BlueStacks_bgp64\HD-RunApp.exe" ' \
-           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Project QT\",\"app_url\":\"\",\"app_pkg\":\"com.ignite.qt\"}"'
-    kok32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
-            r'-json "{\"app_icon_url\":\"\",\"app_name\":\"King of Kinks\",\"app_url\":\"\",\"app_pkg\":\"com.hmagic.kingofkinks\"}"'
-    kok64 = r'"C:\Program Files\BlueStacks_bgp64\HD-RunApp.exe" ' \
-            r'-json "{\"app_icon_url\":\"\",\"app_name\":\"King of Kinks\",\"app_url\":\"\",\"app_pkg\":\"com.hmagic.kingofkinks\"}"'
-    ha32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
-           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Horny Arcana\",\"app_url\":\"\",\"app_pkg\":\"com.superhgame.ha.nutaku\"}"'
-    ha64 = r'"C:\Program Files\BlueStacks_bgp64\HD-RunApp.exe" ' \
-           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Horny Arcana\",\"app_url\":\"\",\"app_pkg\":\"com.superhgame.ha.nutaku\"}"'
+    cc32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Clash of Clans\",\"app_url\":\"\",' \
+           r'\"app_pkg\":\"com.supercell.clashofclans\"}"'
+    cc64 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Clash of Clans\",\"app_url\":\"\",' \
+           r'\"app_pkg\":\"com.supercell.clashofclans\"}"'
+    sl32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Soul Land\",\"app_url\":\"\",' \
+           r'\"app_pkg\":\"com.soullandrl.gp\"}"'
+    sl64 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"Soul Land\",\"app_url\":\"\",' \
+           r'\"app_pkg\":\"com.soullandrl.gp\"}"'
+    ic32 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"ILLUSION CONNECT\",\"app_url\":\"\",' \
+           r'\"app_pkg\":\"com.superprism.illusion\"}"'
+    ic64 = r'"C:\Program Files\BlueStacks\HD-RunApp.exe" ' \
+           r'-json "{\"app_icon_url\":\"\",\"app_name\":\"ILLUSION CONNECT\",\"app_url\":\"\",' \
+           r'\"app_pkg\":\"com.superprism.illusion\"}"'
     time.sleep(1)
     if bit == 32:
         kill_bs(bit)
-        if name.lower() == "kok":
-            subprocess.Popen(kok32)
-        elif name.lower() == "qt":
-            subprocess.Popen(qt32)
-        elif name.lower() == "ha":
-            subprocess.Popen(ha32)
+        if name.lower() == "sl":
+            subprocess.Popen(sl32)
+        elif name.lower() == "cc":
+            subprocess.Popen(cc32)
+        elif name.lower() == "ic":
+            subprocess.Popen(ic32)
         else:
             print("Invalid game name")
     elif bit == 64:
         kill_bs(bit)
-        if name.lower() == "kok":
-            subprocess.Popen(kok64)
-        elif name.lower() == "qt":
-            subprocess.Popen(qt64)
-        elif name.lower() == "ha":
-            subprocess.Popen(ha64)
+        if name.lower() == "sl":
+            subprocess.Popen(sl64)
+        elif name.lower() == "cc":
+            subprocess.Popen(cc64)
+        elif name.lower() == "ic":
+            subprocess.Popen(ic64)
         else:
             print("Invalid bit")
-    time.sleep(30)
+    time.sleep(10)
+    hwnd = get_bs_hwnd(bit)
+    win32gui.ShowWindow(hwnd, win32con.SW_MINIMIZE)
     time.sleep(60)
     get_all_bs()
     print(bs_hwnd)
+    return hwnd
     time.sleep(10)
 
 
-def click(h_wnd, x, y):
+# Send a left-click to a game windows in bs
+# hwnd : handle of the bs instance
+# x, y: position of mouse click in integer
+# Out the timestamp of each click to console
+def click(hwnd, x, y):
     l_param = win32api.MAKELONG(int(x), int(y))
-    h_wnd1 = win32gui.FindWindowEx(h_wnd, None, None, None)
+    h_wnd1 = win32gui.FindWindowEx(hwnd, None, None, None)
     win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
     win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONUP, None, l_param)
+    now = datetime.datetime.now().replace(microsecond=0)
+    print(now)
 
 
-def click_no_ex(h_wnd, x, y):
-    l_param = win32api.MAKELONG(int(x), int(y))
-    win32gui.SendMessage(h_wnd, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
-    win32gui.SendMessage(h_wnd, win32con.WM_LBUTTONUP, None, l_param)
-
-
-def click2(h_wnd, x, y):
-    l_param = win32api.MAKELONG(int(x), int(y))
-    h_wnd1 = win32gui.FindWindowEx(h_wnd, None, None, None)
-    win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, l_param)
-    win32gui.PostMessage(h_wnd1, win32con.WM_LBUTTONUP, None, l_param)
-
-
+# return the game resolution of the game screen:
+# game_width, game_height in integer
 def get_game_dimension(hwnd):
     print("Getting Resolution from hwnd", hwnd)
     hwnd1 = win32gui.FindWindowEx(hwnd, None, None, None)
